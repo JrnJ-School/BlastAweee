@@ -135,6 +135,11 @@ MonoBehaviour:
   <Visual>k__BackingField: {fileID: 838120100576613253}
   <OnHitParticleSystemPrefab>k__BackingField: {fileID: 127117231452685905, guid: b64239b43bdad7e4b9a0b25ba73af1e0, type: 3}
   <Speed>k__BackingField: 10
+  <HitDamage>k__BackingField: 50
+  <ExplosionRange>k__BackingField: 3
+  <LayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 448
 --- !u!50 &3611384146353202029
 Rigidbody2D:
   serializedVersion: 4

@@ -37,6 +37,11 @@ public class PlayerController : Entity
         CheckInput();
     }
 
+    protected override void EntityDied()
+    {
+        
+    }
+
     private void CheckInput()
     {
         // Aim Gun

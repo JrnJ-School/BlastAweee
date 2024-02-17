@@ -21,7 +21,7 @@ public class Entity : MonoBehaviour
     {
         if (Health - amount <= 0)
         {
-            EnemyDied();
+            EntityDied();
             return;
         }
 
@@ -39,8 +39,10 @@ public class Entity : MonoBehaviour
         Health += amount;
     }
 
-    private void EnemyDied()
+    protected virtual void EntityDied()
     {
+        // provide killer to award xp or something
 
+        Destroy(gameObject);
     }
 }

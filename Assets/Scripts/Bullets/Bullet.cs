@@ -16,6 +16,9 @@ public class Bullet : MonoBehaviour
     [field: SerializeField, Header("Variables")]
     public float Speed { get; private set; }
 
+    [field: SerializeField]
+    public float HitDamage { get; private set; }
+
     public Quaternion Direction { get; set; } = Quaternion.identity;
 
     public virtual float DespawnTime { get; } = 15.0f;
@@ -66,6 +69,11 @@ public class Bullet : MonoBehaviour
 
         // Destroy Bullet after Particle finished playing
         Destroy(gameObject, hitParticle.main.duration);
+    }
+
+    protected virtual void DoHitDamage()
+    {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

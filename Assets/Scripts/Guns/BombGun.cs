@@ -8,6 +8,6 @@ public class BombGun : Gun
     {
         base.Shoot();
 
-        Debug.Log("SHOOT!");
+        //Debug.Log("SHOOT!");
     }
 }

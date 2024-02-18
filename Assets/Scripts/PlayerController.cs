@@ -73,14 +73,6 @@ public class PlayerController : Entity
         Rb.velocity = _moveDirection * ActiveMoveSpeed;
     }
 
-    private void FixedUpdate()
-    {
-        if (IsDashing)
-        {
-
-        }
-    }
-
     private void AimGun()
     {
         // Get Input
@@ -122,15 +114,11 @@ public class PlayerController : Entity
             EndDash();
             return;
         }
-
-        // Go back to normal speed
-
     }
     private void EndDash()
     {
         IsDashing = false;
-        //ActiveMoveSpeed = Speed;
-        TargetMoveSpeed = Speed;
+        ActiveMoveSpeed = Speed;
         _dashCooldownTimer = 0.0f;
     }
 
@@ -251,8 +239,7 @@ public class PlayerController : Entity
 
         if (collision.CompareTag("KeyDoor"))
         {
-            KeyDoor door = collision.GetComponent<KeyDoor>();
-            if (door == null)
+            if (!collision.TryGetComponent(out KeyDoor door))
             {
                 return;
             }

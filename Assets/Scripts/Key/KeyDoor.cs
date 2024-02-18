@@ -11,30 +11,32 @@ public class KeyDoor : MonoBehaviour
     public Sprite OpenDoorVisual { get; private set; }
 
     [field: SerializeField]
+    public SpriteRenderer Renderer { get; private set; }
+
+    [field: SerializeField]
     public int KeysNeededToOpen { get; private set; }
 
     private bool IsOpen { get; set; } = false;
 
     private void Awake()
     {
-        
+        Renderer.sprite = ClosedDoorVisual;
     }
 
     public void TryOpen(PlayerController opener)
     {
         if (!IsOpen)
         {
-            if (opener.Keys.Count < KeysNeededToOpen)
+            if (opener.Keys.Count >= KeysNeededToOpen)
             {
-                return;
+                Open();
             }
         }
-
-        Open();
     }
 
     private void Open()
     {
+        Renderer.sprite = OpenDoorVisual;
         IsOpen = true;
     }
 }

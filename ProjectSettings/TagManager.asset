@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Spike
   - PowerUp
+  - Key
+  - KeyDoor
   layers:
   - Default
   - TransparentFX

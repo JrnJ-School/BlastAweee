@@ -25,9 +25,9 @@ public class PlayerController : Entity
     private float _dashCooldownTimer = 0.0f;
 
     // Player.cs
-
-    [field: SerializeField]
     public List<PowerUp> ActivePowerUps { get; private set; } = new();
+
+    public List<Key> Keys { get; private set; } = new();
 
     private Quaternion _aimDirection = Quaternion.identity;
     private Vector2 _moveDirection = Vector2.zero;
@@ -70,8 +70,15 @@ public class PlayerController : Entity
             }
         }
 
-
         Rb.velocity = _moveDirection * ActiveMoveSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsDashing)
+        {
+
+        }
     }
 
     private void AimGun()
@@ -116,13 +123,14 @@ public class PlayerController : Entity
             return;
         }
 
-        //
+        // Go back to normal speed
 
     }
     private void EndDash()
     {
         IsDashing = false;
-        ActiveMoveSpeed = Speed;
+        //ActiveMoveSpeed = Speed;
+        TargetMoveSpeed = Speed;
         _dashCooldownTimer = 0.0f;
     }
 
@@ -234,6 +242,22 @@ public class PlayerController : Entity
 
             // TODO: for now just destroy it
             Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Key"))
+        {
+
+        }
+
+        if (collision.CompareTag("KeyDoor"))
+        {
+            KeyDoor door = collision.GetComponent<KeyDoor>();
+            if (door == null)
+            {
+                return;
+            }
+
+            door.TryOpen(this);
         }
     }
 }

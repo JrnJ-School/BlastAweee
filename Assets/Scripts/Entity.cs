@@ -16,6 +16,13 @@ public class Entity : MonoBehaviour
 
     [HideInInspector]
     public float ActiveMoveSpeed = 0.0f;
+    [HideInInspector]
+    public float TargetMoveSpeed = 0.0f;
+
+    private void Awake()
+    {
+        Health = MaxHealth;
+    }
 
     public void Damage(float amount)
     {

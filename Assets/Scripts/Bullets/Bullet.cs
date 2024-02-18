@@ -63,6 +63,8 @@ public class Bullet : MonoBehaviour
 
         Visual.SetActive(false);
 
+        DoHitDamage();
+
         // Instantiate the particle system prefab
         ParticleSystem hitParticle = Instantiate(OnHitParticleSystemPrefab, transform.position, Quaternion.identity, transform);
         hitParticle.Play();

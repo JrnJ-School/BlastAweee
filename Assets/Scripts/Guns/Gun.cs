@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public static BulletsShotStatistic BulletsShotStatistic { get; } = new();
+
     [field: SerializeField, Header("Components")]
     public Transform Pivot { get; private set; }
 
@@ -57,6 +59,7 @@ public class Gun : MonoBehaviour
 
         // Knockback Player
         Owner.TakeKnockback((_aimDirection.eulerAngles.z + 180.0f) % 360.0f, KnockbackSpeed, KnockbackTime);
+        BulletsShotStatistic.AddValue(1);
     }
 
     public void Enable()

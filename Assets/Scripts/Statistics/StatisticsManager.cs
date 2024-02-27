@@ -40,33 +40,54 @@ public class StatisticsManager : MonoBehaviour
     }
     #endregion Singleton
 
-    private List<IStatistic> Statistics { get; set; }
+    private static List<Statistic> Statistics { get; set; } = new();
 
     // 
-    public void RegisterStatistic(IStatistic statistic)
+    public static void RegisterStatistic(Statistic statistic)
     {
-
+        Statistics.Add(statistic);
     }
 
-    public void SetStatistic(IStatistic statistic)
+    public void SetStatistic(Statistic statistic)
     {
         switch (statistic.StatisticType)
         {
-            case IStatistic.StatisticValueType.Int:
+            case Statistic.StatisticValueType.Int:
                 PlayerPrefs.SetInt(statistic.Key, (int)statistic.GetStatisticValue());
                 break;
-            case IStatistic.StatisticValueType.Float:
+            case Statistic.StatisticValueType.Float:
                 PlayerPrefs.SetFloat(statistic.Key, (float)statistic.GetStatisticValue());
                 break;
-            case IStatistic.StatisticValueType.String:
+            case Statistic.StatisticValueType.String:
                 PlayerPrefs.SetString(statistic.Key, (string)statistic.GetStatisticValue());
                 break;
+            default: return;
         }
     }
 
     public void GetAllStatistics()
     {
-        
+        foreach (Statistic statistic in Statistics)
+        {
+            string value;
+            switch (statistic.StatisticType)
+            {
+                case Statistic.StatisticValueType.Int:
+                    value = PlayerPrefs.GetInt(statistic.Key).ToString();
+                    break;
+
+                case Statistic.StatisticValueType.Float:
+                    value = PlayerPrefs.GetFloat(statistic.Key).ToString();
+                    break;
+
+                case Statistic.StatisticValueType.String:
+                    value = PlayerPrefs.GetString(statistic.Key);
+                    break;
+                default: return;
+            }
+
+            Debug.Log($"{statistic.Key} : {value}");
+        }
     }
 
     // PlayerPrefs

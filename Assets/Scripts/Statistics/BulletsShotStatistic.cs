@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathStatistic : Statistic
+public class BulletsShotStatistic : Statistic
 {
-    public override string Key => "Deaths";
+    public override string Key => "BulletsShot";
 
     public override StatisticValueType StatisticType => StatisticValueType.Int;
 

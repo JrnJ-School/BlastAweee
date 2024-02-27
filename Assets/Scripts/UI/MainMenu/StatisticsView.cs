@@ -9,6 +9,7 @@ public class StatisticsView : View
 
     public void ReturnButtonClick()
     {
+        StatisticsManager.Instance.GetAllStatistics();
         ViewManager.LoadPreviousView();
     }
 }

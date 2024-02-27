@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Enemy : Entity
 {
+    public static EnemyKillStatistic EnemyKillStatistic { get; } = new();
+
     [field: SerializeField]
     public float DetectionRange { get; private set; }
 
@@ -38,6 +40,13 @@ public class Enemy : Entity
         }
 
         Move();
+    }
+
+    protected override void EntityDied()
+    {
+        EnemyKillStatistic.AddValue(1);
+
+        base.EntityDied();
     }
 
     public virtual void Move()

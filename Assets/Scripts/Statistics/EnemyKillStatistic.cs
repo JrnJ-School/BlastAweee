@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
-public class DeathStatistic : Statistic
+public class EnemyKillStatistic : Statistic
 {
-    public override string Key => "Deaths";
+    public override string Key => "EnemiesKilled";
 
     public override StatisticValueType StatisticType => StatisticValueType.Int;
 

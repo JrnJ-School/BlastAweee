@@ -40,12 +40,33 @@ public class StatisticsManager : MonoBehaviour
     }
     #endregion Singleton
 
-    public List<IStatistic> Statistics { get; set; }
+    private List<IStatistic> Statistics { get; set; }
 
     // 
-    public void GetAllStatistics()
+    public void RegisterStatistic(IStatistic statistic)
     {
 
+    }
+
+    public void SetStatistic(IStatistic statistic)
+    {
+        switch (statistic.StatisticType)
+        {
+            case IStatistic.StatisticValueType.Int:
+                PlayerPrefs.SetInt(statistic.Key, (int)statistic.GetStatisticValue());
+                break;
+            case IStatistic.StatisticValueType.Float:
+                PlayerPrefs.SetFloat(statistic.Key, (float)statistic.GetStatisticValue());
+                break;
+            case IStatistic.StatisticValueType.String:
+                PlayerPrefs.SetString(statistic.Key, (string)statistic.GetStatisticValue());
+                break;
+        }
+    }
+
+    public void GetAllStatistics()
+    {
+        
     }
 
     // PlayerPrefs
@@ -56,6 +77,6 @@ public class StatisticsManager : MonoBehaviour
 
     public void SaveStatisticsToSave()
     {
-
+        PlayerPrefs.Save();
     }
 }

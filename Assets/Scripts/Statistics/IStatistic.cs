@@ -4,7 +4,16 @@ using UnityEngine;
 
 public interface IStatistic
 {
+    public enum StatisticValueType
+    {
+        Int,
+        Float,
+        String
+    }
+
     public string Key { get; }
 
-    public string GetStatisticValue();
+    public StatisticValueType StatisticType { get; }
+
+    public object GetStatisticValue();
 }

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cdd01693be20444903abe597918db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ItemTag>k__BackingField: PowerUp
   <Name>k__BackingField: Rapid Fire
   <Icon>k__BackingField: {fileID: 21300000, guid: 8a2df6dec818f2f48b480dedaab826cc, type: 3}
   <Duration>k__BackingField: 5

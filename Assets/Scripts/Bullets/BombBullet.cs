@@ -13,12 +13,10 @@ public class BombBullet : Bullet
 
     protected override void DoHitDamage()
     {
-        Debug.Log("meow!");
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, ExplosionRange, LayerMask);
 
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log("Dmaage!");
             collider.GetComponent<Entity>().Damage(HitDamage);
         }
     }

@@ -16,6 +16,9 @@ public class KeyDoor : MonoBehaviour
     [field: SerializeField]
     public int KeysNeededToOpen { get; private set; }
 
+    [field: SerializeField]
+    public GameUI GameUI { get; private set; }
+
     private bool IsOpen { get; set; } = false;
 
     private void Awake()
@@ -38,5 +41,6 @@ public class KeyDoor : MonoBehaviour
     {
         Renderer.sprite = OpenDoorVisual;
         IsOpen = true;
+        GameUI.NextLevelScreen.gameObject.SetActive(true);
     }
 }

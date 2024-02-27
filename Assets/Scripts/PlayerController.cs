@@ -7,7 +7,7 @@ public class PlayerController : Entity
     public Camera Camera { get; private set; }
 
     [field: SerializeField]
-    public UIManager UIManager { get; private set; }
+    public GameUI GameUI { get; private set; }
 
     [field: SerializeField]
     public Gun Gun { get; private set; }
@@ -39,7 +39,7 @@ public class PlayerController : Entity
 
     protected override void EntityDied()
     {
-        
+        GameUI.GameOverScreen.gameObject.SetActive(true);
     }
 
     private void CheckInput()
@@ -191,7 +191,7 @@ public class PlayerController : Entity
         if (existingPowerUp == null)
         {
             ActivePowerUps.Add(powerUp);
-            UIManager.AddPowerUp(powerUp);
+            GameUI.AddPowerUp(powerUp);
         }
         else
         {
@@ -206,7 +206,7 @@ public class PlayerController : Entity
             if (ActivePowerUps[i].Name == powerUp.Name)
             {
                 ActivePowerUps.RemoveAt(i);
-                UIManager.RemovePowerUp(powerUp.Name);
+                GameUI.RemovePowerUp(powerUp.Name);
                 return;
             }
         }
@@ -222,19 +222,10 @@ public class PlayerController : Entity
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PowerUp"))
+        if (collision.TryGetComponent(out Item item))
         {
-            // Use Power up
-            PowerUp powerUp = collision.GetComponent<PowerUpPickupable>().ToPowerUp();
-            AddPowerUp(powerUp);
-
-            // TODO: for now just destroy it
-            Destroy(collision.gameObject);
-        }
-
-        if (collision.CompareTag("Key"))
-        {
-
+            PickupItem(item);
+            return;
         }
 
         if (collision.CompareTag("KeyDoor"))
@@ -246,5 +237,22 @@ public class PlayerController : Entity
 
             door.TryOpen(this);
         }
+    }
+
+    private void PickupItem(Item item)
+    {
+        switch (item.ItemTag)
+        {
+            case "PowerUp":
+                PowerUp powerUp = item.GetComponent<PowerUpPickupable>().ToPowerUp();
+                AddPowerUp(powerUp);
+                break;
+
+            case "Key":
+                Keys.Add(item.GetComponent<KeyItem>().ToKey());
+                break;
+        }
+
+        item.PickedUp();
     }
 }

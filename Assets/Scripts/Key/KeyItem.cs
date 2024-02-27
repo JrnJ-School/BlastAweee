@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyItem : MonoBehaviour
+public class KeyItem : Item
 {
-    // Start is called before the first frame update
-    void Start()
+    public Key ToKey()
     {
-        
-    }
+        return new Key()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        };
     }
 }

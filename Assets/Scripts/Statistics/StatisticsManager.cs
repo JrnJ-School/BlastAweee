@@ -42,6 +42,11 @@ public class StatisticsManager : MonoBehaviour
 
     private static List<Statistic> Statistics { get; set; } = new();
 
+    // Statistics
+    public static EnemyKillStatistic EnemyKillStatistic { get; } = new();
+    public static BulletsShotStatistic BulletsShotStatistic { get; } = new();
+    public static DeathStatistic DeathStatistic { get; } = new();
+
     // 
     public static void RegisterStatistic(Statistic statistic)
     {

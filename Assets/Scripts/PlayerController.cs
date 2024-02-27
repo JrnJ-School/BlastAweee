@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerController : Entity
 {
-    public static DeathStatistic DeathStatistic { get; } = new();
-
     [field: SerializeField]
     public Camera Camera { get; private set; }
 
@@ -41,6 +39,7 @@ public class PlayerController : Entity
 
     protected override void EntityDied()
     {
+        StatisticsManager.DeathStatistic.AddValue(1);
         GameUI.GameOverScreen.gameObject.SetActive(true);
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,21 @@ public class Enemy : Entity
 
     private void Update()
     {
+        OnUpdate();
+    }
+
+    public virtual void OnUpdate()
+    {
+        if (Target == null)
+        {
+            CheckForTarget();
+        }
+
+        Move();
+    }
+
+    private void CheckForTarget()
+    {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, DetectionRange, LayerMask);
 
         foreach (Collider2D collider in colliders)
@@ -26,7 +42,7 @@ public class Enemy : Entity
             //if (hit.collider != null && hit.collider == collider)
             //{
             //    // You may want to add additional checks here based on your requirements
-                
+
             //}
             //else
             //{
@@ -36,8 +52,6 @@ public class Enemy : Entity
 
             Target = collider.gameObject.transform;
         }
-
-        Move();
     }
 
     protected override void EntityDied()
@@ -49,13 +63,7 @@ public class Enemy : Entity
 
     public virtual void Move()
     {
-        if (Target == null)
-        {
-            return;
-        }
 
-        Vector2 _moveDirection = (Target.position - transform.position).normalized;
-        Rb.velocity = _moveDirection * Speed; // TODO
     }
 
     void OnDrawGizmosSelected()

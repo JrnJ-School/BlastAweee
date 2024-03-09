@@ -11,7 +11,7 @@ public class BombBullet : Bullet
     [field: SerializeField]
     public LayerMask LayerMask { get; private set; }
 
-    protected override void DoHitDamage()
+    protected override void DoHitDamage(Collider2D collision)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, ExplosionRange, LayerMask);
 

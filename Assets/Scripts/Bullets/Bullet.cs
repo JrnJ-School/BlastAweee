@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
     public GameObject Visual { get; private set; }
 
     [field: SerializeField]
+    public bool HasDamageParticles { get; private set; }
+
+    [field: SerializeField]
     public ParticleSystem OnHitParticleSystemPrefab { get; private set; }
 
     [field: SerializeField, Header("Variables")]
@@ -19,6 +22,9 @@ public class Bullet : MonoBehaviour
     [field: SerializeField]
     public float HitDamage { get; private set; }
 
+    [field: SerializeField]
+    public GameObject Owner { get; private set; }
+
     public Quaternion Direction { get; set; } = Quaternion.identity;
 
     public virtual float DespawnTime { get; } = 15.0f;
@@ -26,10 +32,11 @@ public class Bullet : MonoBehaviour
     private float _timer = 0.0f;
     private bool _hit = false;
 
-    public void Go(Quaternion direction)
+    public void Go(Quaternion direction, GameObject owner)
     {
         Direction = direction;
         transform.rotation = Direction;
+        Owner = owner;
     }
 
     private void Update()
@@ -56,16 +63,22 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnHit()
+    private void OnHit(Collider2D collision)
     {
         Rb.velocity = Vector2.zero;
         _hit = true;
 
         Visual.SetActive(false);
 
-        DoHitDamage();
+        DoHitDamage(collision);
 
         // Instantiate the particle system prefab
+        if (!HasDamageParticles)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         ParticleSystem hitParticle = Instantiate(OnHitParticleSystemPrefab, transform.position, Quaternion.identity, transform);
         hitParticle.Play();
 
@@ -73,16 +86,23 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, hitParticle.main.duration);
     }
 
-    protected virtual void DoHitDamage()
+    protected virtual void DoHitDamage(Collider2D collision)
     {
+        if (!collision.TryGetComponent(out Entity entity))
+        {
+            return;
+        }
 
+        entity.Damage(HitDamage);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PowerUp"))
+        if (collision.CompareTag("PowerUp") || collision.CompareTag("Bullet"))
+            return;
+        if (collision.gameObject == Owner)
             return;
 
-        OnHit();
+        OnHit(collision);
     }
 }

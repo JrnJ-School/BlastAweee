@@ -10,7 +10,10 @@ public class Enemy : Entity
     public float DetectionRange { get; private set; }
 
     [field: SerializeField]
-    public LayerMask LayerMask { get; private set; }
+    public LayerMask CanInteruptLayerMasks { get; private set; }
+
+    [field: SerializeField]
+    public LayerMask CanAttackLayerMasks { get; private set; }
 
     public Transform Target { get; set; }
 
@@ -31,32 +34,27 @@ public class Enemy : Entity
 
     private void CheckForTarget()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, DetectionRange, LayerMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, DetectionRange, CanAttackLayerMasks);
 
         foreach (Collider2D collider in colliders)
         {
-            //Vector2 direction = (collider.transform.position - transform.position).normalized;
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, DetectionRange, LayerMask);
-
-            //// Check if there is a hit
-            //if (hit.collider != null && hit.collider == collider)
-            //{
-            //    // You may want to add additional checks here based on your requirements
-
-            //}
-            //else
-            //{
-            //    Debug.Log($"Collider: {collider} | Hit: {hit.collider}");
-            //    Debug.Log("meow");
-            //}
-
-            Target = collider.gameObject.transform;
+            Vector2 direction = (collider.transform.position - transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, DetectionRange, CanInteruptLayerMasks);
+            
+            if (hit.collider != null)
+            {
+                if (LayerMask.LayerToName(hit.collider.gameObject.layer) == "Player")
+                {
+                    Target = collider.gameObject.transform;
+                }
+            }
         }
     }
 
     protected override void EntityDied()
     {
         StatisticsManager.EnemyKillStatistic.AddValue(1);
+        DropLoot();
 
         base.EntityDied();
     }
@@ -64,6 +62,22 @@ public class Enemy : Entity
     public virtual void Move()
     {
 
+    }
+
+    protected virtual void DropLoot()
+    {
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (Target.transform == null)
+            return;
+
+        if (collision.transform != Target.transform)
+            return;
+
+        Debug.Log("ATTACK Trigger");
     }
 
     void OnDrawGizmosSelected()

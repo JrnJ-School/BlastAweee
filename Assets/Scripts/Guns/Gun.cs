@@ -12,10 +12,13 @@ public class Gun : MonoBehaviour
     public Transform BulletSpawn { get; private set; }
 
     [field: SerializeField]
-    public PlayerController Owner { get; private set; }
+    public Entity Owner { get; private set; }
 
     [field: SerializeField, Header("Variables")]
     public float TimeBetweenShots { get; private set; } // In Seconds
+
+    [field: SerializeField, Header("Knockback")]
+    public bool HasKnockback { get; private set; }
 
     [field: SerializeField]
     public float KnockbackSpeed { get; private set; }
@@ -53,11 +56,18 @@ public class Gun : MonoBehaviour
     {
         // Spawn Bullet
         GameObject bullet = Instantiate(BulletPrefab, BulletSpawn.position, Quaternion.identity, transform);
-        bullet.GetComponent<Bullet>().Go(_aimDirection);
+        bullet.GetComponent<Bullet>().Go(_aimDirection, Owner.gameObject);
 
-        // Knockback Player
-        Owner.TakeKnockback((_aimDirection.eulerAngles.z + 180.0f) % 360.0f, KnockbackSpeed, KnockbackTime);
-        StatisticsManager.BulletsShotStatistic.AddValue(1);
+        // Knockback Entity
+        if (HasKnockback)
+        {
+            Owner.TakeKnockback((_aimDirection.eulerAngles.z + 180.0f) % 360.0f, KnockbackSpeed, KnockbackTime);
+        }
+
+        if (Owner.IsPlayer)
+        {
+            StatisticsManager.BulletsShotStatistic.AddValue(1);
+        }
     }
 
     public void Enable()

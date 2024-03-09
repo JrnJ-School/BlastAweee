@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Entity
+public class PlayerController : Entity, IGunEntity
 {
     [field: SerializeField]
     public Camera Camera { get; private set; }
@@ -22,6 +22,8 @@ public class PlayerController : Entity
     public float DashCooldown { get; private set; }
     public bool IsDashing { get; private set; } = false;
 
+    public override bool IsPlayer => true;
+
     private float _dashCooldownTimer = 0.0f;
 
     // Player.cs
@@ -30,7 +32,6 @@ public class PlayerController : Entity
     public List<Key> Keys { get; private set; } = new();
 
     private Quaternion _aimDirection = Quaternion.identity;
-    private Vector2 _moveDirection = Vector2.zero;
 
     private void Update()
     {
@@ -55,7 +56,7 @@ public class PlayerController : Entity
         }
 
         // Move Player
-        if (_takingKnockback)
+        if (TakingKnockback)
         {
             DoTakeKnockback();
         }
@@ -74,7 +75,7 @@ public class PlayerController : Entity
         Rb.velocity = _moveDirection * ActiveMoveSpeed;
     }
 
-    private void AimGun()
+    public void AimGun()
     {
         // Get Input
         Vector2 mousePosition = Camera.ScreenToWorldPoint(Input.mousePosition);
@@ -129,40 +130,6 @@ public class PlayerController : Entity
         float yInput = Input.GetAxisRaw("Vertical");
 
         _moveDirection = new Vector2(xInput, yInput).normalized;
-        ActiveMoveSpeed = Speed;
-    }
-
-    private float _knockbackTimer;
-    private bool _takingKnockback;
-    private float _knockbackTime;
-
-    public void TakeKnockback(float direction, float speed, float time)
-    {
-        _moveDirection = new Vector2(
-            Mathf.Cos(direction * Mathf.Deg2Rad),
-            Mathf.Sin(direction * Mathf.Deg2Rad)
-            ).normalized;
-
-        ActiveMoveSpeed = speed;
-        _takingKnockback = true;
-        _knockbackTime = time;
-    }
-    private void DoTakeKnockback()
-    {
-        _knockbackTimer += Time.deltaTime;
-
-        // Check for End of Dash
-        if (_knockbackTimer >= _knockbackTime)
-        {
-            FinishTakeKnockback();
-            return;
-        }
-    }
-    private void FinishTakeKnockback()
-    {
-        _takingKnockback = false;
-        _knockbackTimer = 0.0f;
-        _knockbackTime = 0.0f;
         ActiveMoveSpeed = Speed;
     }
 

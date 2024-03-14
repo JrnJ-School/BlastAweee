@@ -39,11 +39,13 @@ public class ViewManager : MonoBehaviour
         // Hide Current
         if (CurrentView != null)
         {
+            CurrentView.OnExit();
             CurrentView.Hide();
         }
 
         // Show new
         CurrentView = view;
         CurrentView.Show();
+        CurrentView.OnEnter();
     }
 }

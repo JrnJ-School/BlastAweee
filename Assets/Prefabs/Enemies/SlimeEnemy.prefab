@@ -55,10 +55,10 @@ MonoBehaviour:
   <DetectionRange>k__BackingField: 13
   <CanInteruptLayerMasks>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 576
   <CanAttackLayerMasks>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   <TimeBetweenJumps>k__BackingField: 1.25
   <JumpDuration>k__BackingField: 0.3
 --- !u!50 &1927835284613544374

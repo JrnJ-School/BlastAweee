@@ -11,9 +11,19 @@ public class EnemyKillStatistic : Statistic
 
     public int Value { get; set; }
 
+    public EnemyKillStatistic()
+    {
+        Value = PlayerPrefs.GetInt(Key);
+    }
+
     public override object GetStatisticValue()
     {
         return Value;
+    }
+
+    public override string GetStatisticValueAsString()
+    {
+        return Value.ToString();
     }
 
     public override void AddValue(object value)

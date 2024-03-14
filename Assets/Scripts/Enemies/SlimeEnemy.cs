@@ -13,6 +13,9 @@ public class SlimeEnemy : Enemy
     public float TimeTillJump { get; private set; } = 0.0f;
     public float TimeJumping { get; private set; } = 0.0f;
 
+    private Vector3 _targetPositionWhenJumped = Vector3.zero;
+    private bool _isJumping = false;
+
     private void Awake()
     {
         TimeTillJump = TimeBetweenJumps;
@@ -45,14 +48,26 @@ public class SlimeEnemy : Enemy
             return;
         }
 
-        Vector2 _moveDirection = (Target.position - transform.position).normalized;
+        if (!_isJumping)
+        {
+            StartJump();
+        }
+
+        Vector3 _moveDirection = (_targetPositionWhenJumped - transform.position).normalized;
         Rb.velocity = _moveDirection * Speed;
 
         TimeJumping += Time.deltaTime;
     }
 
+    private void StartJump()
+    {
+        _targetPositionWhenJumped = Target.position;
+        _isJumping = true;
+    }
+
     private void StopMoving()
     {
-        Rb.velocity = Vector2.zero;
+        Rb.velocity = Vector3.zero;
+        _isJumping = false;
     }
 }

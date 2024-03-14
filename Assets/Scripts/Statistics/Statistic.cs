@@ -17,6 +17,8 @@ public abstract class Statistic
 
     public abstract object GetStatisticValue();
 
+    public abstract string GetStatisticValueAsString();
+
     public virtual void SetValue(object value)
     {
         StatisticsManager.Instance.SetStatistic(this);

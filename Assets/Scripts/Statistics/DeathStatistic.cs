@@ -10,9 +10,19 @@ public class DeathStatistic : Statistic
 
     public int Value { get; set; }
 
+    public DeathStatistic()
+    {
+        Value = PlayerPrefs.GetInt(Key);
+    }
+
     public override object GetStatisticValue()
     {
         return Value;
+    }
+
+    public override string GetStatisticValueAsString()
+    {
+        return Value.ToString();
     }
 
     public override void AddValue(object value)

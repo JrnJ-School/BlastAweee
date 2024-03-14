@@ -10,9 +10,19 @@ public class BulletsShotStatistic : Statistic
 
     public int Value { get; set; }
 
+    public BulletsShotStatistic()
+    {
+        Value = PlayerPrefs.GetInt(Key);
+    }
+
     public override object GetStatisticValue()
     {
         return Value;
+    }
+
+    public override string GetStatisticValueAsString()
+    {
+        return Value.ToString();
     }
 
     public override void AddValue(object value)

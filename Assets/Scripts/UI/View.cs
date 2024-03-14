@@ -11,4 +11,14 @@ public class View : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    public virtual void OnEnter()
+    {
+
+    }
+
+    public virtual void OnExit()
+    {
+
+    }
 }

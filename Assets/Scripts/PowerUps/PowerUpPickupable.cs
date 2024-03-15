@@ -27,9 +27,9 @@ public class PowerUpPickupable : Item
         GetComponent<SpriteRenderer>().sprite = Icon;
     }
 
-    public PowerUp ToPowerUp()
+    public virtual PowerUp ToPowerUp()
     {
-        return new()
+        return new PowerUp()
         {
             Name = Name,
             Duration = Duration,

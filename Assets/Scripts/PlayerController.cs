@@ -160,6 +160,7 @@ public class PlayerController : Entity, IGunEntity
         {
             ActivePowerUps.Add(powerUp);
             GameUI.AddPowerUp(powerUp);
+            powerUp.OnPickup(this);
         }
         else
         {
@@ -213,6 +214,7 @@ public class PlayerController : Entity, IGunEntity
         {
             case "PowerUp":
                 PowerUp powerUp = item.GetComponent<PowerUpPickupable>().ToPowerUp();
+                powerUp.OnPickup(this);
                 AddPowerUp(powerUp);
                 break;
 

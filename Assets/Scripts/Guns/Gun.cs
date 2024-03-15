@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
 
     [field: SerializeField, Header("Variables")]
     public float TimeBetweenShots { get; private set; } // In Seconds
+    private float _timeBetweenShots;
 
     [field: SerializeField, Header("Knockback")]
     public bool HasKnockback { get; private set; }
@@ -32,6 +33,11 @@ public class Gun : MonoBehaviour
     private bool _isEnabled = true;
     private float _timer = 0.0f;
     private Quaternion _aimDirection = Quaternion.identity;
+
+    private void Awake()
+    {
+        _timeBetweenShots = TimeBetweenShots;
+    }
 
     private void Update()
     {
@@ -78,6 +84,21 @@ public class Gun : MonoBehaviour
     public void Disable()
     {
         _isEnabled = false;
+    }
+
+    public float GetBaseTimeBetweenShots()
+    {
+        return _timeBetweenShots;
+    }
+
+    public void SetTimeBetweenShots(float time)
+    {
+        TimeBetweenShots = time;
+    }
+
+    public void ResetTimeBetweenShots()
+    {
+        TimeBetweenShots = _timeBetweenShots;
     }
 
     private void TryAutoShoot()

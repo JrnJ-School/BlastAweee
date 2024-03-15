@@ -10,8 +10,18 @@ public class PowerUp
 
     public float Duration { get; set; }
 
+    public virtual void OnPickup(PlayerController player)
+    {
+        
+    }
+
     public virtual void Use()
     {
         
+    }
+
+    public virtual void OnExpired()
+    {
+
     }
 }

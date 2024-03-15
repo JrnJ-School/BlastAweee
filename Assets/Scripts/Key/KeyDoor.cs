@@ -16,13 +16,13 @@ public class KeyDoor : MonoBehaviour
     [field: SerializeField]
     public int KeysNeededToOpen { get; private set; }
 
-    [field: SerializeField]
     public GameUI GameUI { get; private set; }
 
     private bool IsOpen { get; set; } = false;
 
     private void Awake()
     {
+        GameUI = GameManager.Instance.GameUI;
         Renderer.sprite = ClosedDoorVisual;
     }
 

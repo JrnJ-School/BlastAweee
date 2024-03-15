@@ -32,7 +32,7 @@ public class GameUI : MonoBehaviour
             {
                 GameOverScreen.gameObject.SetActive(false);
                 // TODO: reset scene?
-                GameSceneManager.Instance.LoadScene("MainMenuScene");
+                GameManager.Instance.SelectMainMenu();
             }
         }
 
@@ -42,7 +42,7 @@ public class GameUI : MonoBehaviour
             {
                 NextLevelScreen.gameObject.SetActive(false);
                 // TODO: go to next lvel
-                GameSceneManager.Instance.LoadScene("MainMenuScene");
+                GameManager.Instance.SelectMainMenu();
             }
         }
     }
@@ -53,7 +53,7 @@ public class GameUI : MonoBehaviour
         CloseEscapeMenu();
 
         StatisticsManager.Instance.SaveStatisticsToSave();
-        GameSceneManager.Instance.LoadScene("MainMenuScene");
+        GameManager.Instance.SelectMainMenu();
     }
 
     public void OpenEscapeMenu()

@@ -10,6 +10,7 @@ public class Layers
         Wall = 15,
         WallTorch = 16,
         Traps = 17,
+        GroundTorch = 18,
         Door = 20,
         Items = 25,
         Bullets = 30,

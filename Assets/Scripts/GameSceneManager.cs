@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,11 +41,19 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        AsyncOperation asyncSceneOperation = SceneManager.LoadSceneAsync(sceneName);
-        asyncSceneOperation.allowSceneActivation = false;
+        SceneManager.LoadScene(sceneName);
+    }
 
-        // Show Loading/Progress here
+    public event EventHandler OnSceneLoaded;
 
-        asyncSceneOperation.allowSceneActivation = true;
+    public EventHandler LoadSceneAsync(string sceneName)
+    {
+        SceneManager.LoadSceneAsync(sceneName).completed += GameSceneManager_completed;
+        return OnSceneLoaded;
+    }
+
+    private void GameSceneManager_completed(AsyncOperation obj)
+    {
+        OnSceneLoaded?.Invoke(this, EventArgs.Empty);
     }
 }

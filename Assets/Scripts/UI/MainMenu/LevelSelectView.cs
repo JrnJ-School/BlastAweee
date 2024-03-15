@@ -25,7 +25,7 @@ public class LevelSelectView : View
 
     public void LevelButtonClick(int levelId)
     {
-        GameSceneManager.Instance.LoadScene("LevelScene" + levelId);
+        GameManager.Instance.SelectLevel(levelId);
     }
 
     public void ReturnButtonClick()

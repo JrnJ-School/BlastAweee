@@ -110,11 +110,18 @@ public class GameUI : MonoBehaviour
     {
         GameObject powerUpUI = Instantiate(PowerUpUIPrefab, PowerUpsParent);
         powerUpUI.GetComponent<PowerUpUI>().UpdatePowerUp(powerUp);
+        powerUp.OnExpired += () => { RemovePowerUp(powerUp.Name); };
     }
 
     public void RemovePowerUp(string name)
     {
-
+        for (int i = 0; i < PowerUpsParent.childCount; i++)
+        {
+            if (PowerUpsParent.GetChild(i).GetComponent<PowerUpUI>().name == name)
+            {
+                Destroy(PowerUpsParent.GetChild(i));
+            }
+        }
     }
     #endregion PowerUps
 }

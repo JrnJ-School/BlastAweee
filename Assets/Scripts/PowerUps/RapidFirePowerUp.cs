@@ -8,14 +8,19 @@ public class RapidFirePowerUp : PowerUp
 
     private PlayerController _playerController;
 
+    public RapidFirePowerUp()
+    {
+        OnExpired += PowerUpOnExpired;
+    }
+
     public override void OnPickup(PlayerController player)
     {
         _playerController = player;
         _playerController.Gun.SetTimeBetweenShots(_playerController.Gun.GetBaseTimeBetweenShots() * ShootSpeedModifier);
     }
 
-    public override void OnExpired()
+    private void PowerUpOnExpired()
     {
-        _playerController.Gun.ResetTimeBetweenShots();   
+        _playerController.Gun.ResetTimeBetweenShots();
     }
 }

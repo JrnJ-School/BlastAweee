@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -52,6 +53,7 @@ public class PlayerController : Entity, IGunEntity
     private void Update()
     {
         CheckInput();
+        UpdatePowerups();
     }
 
     protected override void EntityDied()
@@ -153,11 +155,20 @@ public class PlayerController : Entity, IGunEntity
         ActiveMoveSpeed = Speed;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>Null if none, PowerUp if it has</returns>
+    private void UpdatePowerups()
+    {
+        for (int i = 0; i < ActivePowerUps.Count; i++)
+        {
+            ActivePowerUps[i].Duration -= Time.deltaTime;
+            if (ActivePowerUps[i].Duration <= 0.0f)
+            {
+                ActivePowerUps[i].SetExpired();
+                ActivePowerUps.RemoveAt(i);
+                i--;
+            }
+        }
+    }
+
     private PowerUp HasPowerUp(string name)
     {
         for (int i = 0; i < ActivePowerUps.Count; i++)
@@ -184,7 +195,7 @@ public class PlayerController : Entity, IGunEntity
         }
         else
         {
-            // TODO: logic that updates the time or something
+            existingPowerUp.Duration = powerUp.Duration;
         }
     }
 

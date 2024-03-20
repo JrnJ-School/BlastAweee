@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class PowerUp
 
     public float Duration { get; set; }
 
+    public event Action OnExpired;
+
     public virtual void OnPickup(PlayerController player)
     {
         
@@ -20,8 +23,8 @@ public class PowerUp
         
     }
 
-    public virtual void OnExpired()
+    public void SetExpired()
     {
-
+        OnExpired?.Invoke();
     }
 }

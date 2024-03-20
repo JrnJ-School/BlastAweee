@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,14 +25,25 @@ public class Entity : MonoBehaviour
     protected Vector2 _moveDirection = Vector2.zero;
     private float _knockbackTimer;
     private float _knockbackTime;
+    private bool _isInvincible = false;
+
+    public event Action<float> HealthChangedEvent;
 
     private void Awake()
     {
         Health = MaxHealth;
     }
 
+    public void SetInvincible(bool invincible)
+    {
+        _isInvincible = invincible;
+        Health = MaxHealth;
+    }
+
     public void Damage(float amount)
     {
+        if (_isInvincible) return;
+
         if (Health - amount <= 0)
         {
             EntityDied();
@@ -39,10 +51,13 @@ public class Entity : MonoBehaviour
         }
 
         Health -= amount;
+        HealthChangedEvent.Invoke(Health);
     }
 
     public void Heal(float amount)
     {
+        if (_isInvincible) return;
+
         if (Health + amount > MaxHealth)
         {
             Health = MaxHealth;
@@ -50,6 +65,7 @@ public class Entity : MonoBehaviour
         }
 
         Health += amount;
+        HealthChangedEvent.Invoke(Health);
     }
 
     protected virtual void EntityDied()

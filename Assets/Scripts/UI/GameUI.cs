@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
@@ -10,6 +11,7 @@ public class GameUI : MonoBehaviour
 
     [field: SerializeField, Header("PowerUps")]
     public Transform PowerUpsParent { get; private set; }
+
     [field: SerializeField]
     public GameObject PowerUpUIPrefab { get; private set; }
 
@@ -18,6 +20,17 @@ public class GameUI : MonoBehaviour
 
     [field: SerializeField]
     public Transform NextLevelScreen { get; private set; }
+
+    [field: SerializeField]
+    public PlayerController Player { get; private set; }
+
+    [field: SerializeField]
+    public TextMeshProUGUI PlayerHealthText { get; private set; }
+
+    private void Awake()
+    {
+        Player.HealthChangedEvent += HealthChanged;
+    }
 
     void Update()
     {
@@ -69,6 +82,11 @@ public class GameUI : MonoBehaviour
     public void ToggleEscapeMenu()
     {
         SetEscapeMenuOpen(!EscapeOpen);
+    }
+
+    public void HealthChanged(float newHealth)
+    {
+        PlayerHealthText.text = "Health: " + newHealth;
     }
 
     private void SetEscapeMenuOpen(bool open)

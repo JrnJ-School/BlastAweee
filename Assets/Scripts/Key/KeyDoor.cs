@@ -30,7 +30,7 @@ public class KeyDoor : MonoBehaviour
     {
         if (!IsOpen)
         {
-            if (opener.Keys.Count >= KeysNeededToOpen)
+            if (opener.Keys.Count >= KeysNeededToOpen || opener.NoKeysRequired)
             {
                 Open();
             }

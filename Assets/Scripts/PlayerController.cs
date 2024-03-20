@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerController : Entity, IGunEntity
@@ -24,7 +26,8 @@ public class PlayerController : Entity, IGunEntity
 
     public override bool IsPlayer => true;
 
-    private float _dashCooldownTimer = 0.0f;
+    private float _dashTimer = 0.0f;
+    private bool _canDash = true;
 
     // Player.cs
     public List<PowerUp> ActivePowerUps { get; private set; } = new();
@@ -32,6 +35,19 @@ public class PlayerController : Entity, IGunEntity
     public List<Key> Keys { get; private set; } = new();
 
     private Quaternion _aimDirection = Quaternion.identity;
+
+    public bool NoKeysRequired { get; set; } = false;
+
+    public void ResetOnEnterLevel()
+    {
+        Heal(MaxHealth);
+        Keys.Clear();
+        ActivePowerUps.Clear();
+        IsDashing = false;
+        _dashTimer = 0.0f;
+        _canDash = true;
+        _aimDirection = Quaternion.identity;
+    }
 
     private void Update()
     {
@@ -50,7 +66,7 @@ public class PlayerController : Entity, IGunEntity
         AimGun();
 
         // Dash
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _canDash)
         {
             StartDash();
         }
@@ -91,12 +107,8 @@ public class PlayerController : Entity, IGunEntity
 
     private void StartDash()
     {
-        // Allow the Player to Dash in a Dash sounds cool
-        // So instead of a return; I just reset the Dash
-        if (IsDashing)
-            EndDash();
-
         IsDashing = true;
+        _canDash = false;
 
         ActiveMoveSpeed = DashSpeed;
 
@@ -105,23 +117,31 @@ public class PlayerController : Entity, IGunEntity
             Mathf.Cos(_aimDirection.eulerAngles.z * Mathf.Deg2Rad),
             Mathf.Sin(_aimDirection.eulerAngles.z * Mathf.Deg2Rad)
             ).normalized;
+
+        StartCoroutine(CooldownFinished());
     }
     private void DoDash()
     {
-        _dashCooldownTimer += Time.deltaTime;
+        _dashTimer += Time.deltaTime;
 
         // Check for End of Dash
-        if (_dashCooldownTimer >= DashTime)
+        if (_dashTimer >= DashTime)
         {
             EndDash();
             return;
         }
     }
+    private IEnumerator CooldownFinished()
+    {
+        yield return new WaitForSeconds(DashCooldown);
+
+        _canDash = true;
+    }
     private void EndDash()
     {
         IsDashing = false;
         ActiveMoveSpeed = Speed;
-        _dashCooldownTimer = 0.0f;
+        _dashTimer = 0.0f;
     }
 
     private void Move()

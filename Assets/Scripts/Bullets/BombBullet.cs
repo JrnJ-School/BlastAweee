@@ -17,6 +17,9 @@ public class BombBullet : Bullet
 
         foreach (Collider2D collider in colliders)
         {
+            if (Owner == collider.gameObject) 
+                continue;
+
             collider.GetComponent<Entity>().Damage(HitDamage);
         }
     }

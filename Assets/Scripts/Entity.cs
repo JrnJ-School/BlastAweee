@@ -51,7 +51,7 @@ public class Entity : MonoBehaviour
         }
 
         Health -= amount;
-        HealthChangedEvent.Invoke(Health);
+        HealthChangedEvent?.Invoke(Health);
     }
 
     public void Heal(float amount)
@@ -65,7 +65,7 @@ public class Entity : MonoBehaviour
         }
 
         Health += amount;
-        HealthChangedEvent.Invoke(Health);
+        HealthChangedEvent?.Invoke(Health);
     }
 
     protected virtual void EntityDied()

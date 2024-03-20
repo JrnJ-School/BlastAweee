@@ -13,6 +13,12 @@ public class RapidFirePowerUp : PowerUp
         OnExpired += PowerUpOnExpired;
     }
 
+    public RapidFirePowerUp(float duration)
+        : base(duration)
+    {
+        OnExpired += PowerUpOnExpired;
+    }
+
     public override void OnPickup(PlayerController player)
     {
         _playerController = player;

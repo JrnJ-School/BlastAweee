@@ -9,9 +9,26 @@ public class PowerUp
 
     public Sprite Icon { get; set; }
 
-    public float Duration { get; set; }
+    public float Duration { get; private set; }
 
     public event Action OnExpired;
+    public event Action<float> DurationChanged;
+
+    public PowerUp()
+    {
+        
+    }
+
+    public PowerUp(float duration)
+    {
+        Duration = duration;
+    }
+
+    public virtual void SetDuration(float duration)
+    {
+        Duration = duration;
+        DurationChanged?.Invoke(Duration);
+    }
 
     public virtual void OnPickup(PlayerController player)
     {

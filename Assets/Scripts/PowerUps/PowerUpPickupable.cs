@@ -29,10 +29,9 @@ public class PowerUpPickupable : Item
 
     public virtual PowerUp ToPowerUp()
     {
-        return new PowerUp()
+        return new PowerUp(Duration)
         {
             Name = Name,
-            Duration = Duration,
             Icon = Icon
         };
     }

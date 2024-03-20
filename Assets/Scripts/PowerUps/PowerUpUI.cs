@@ -15,10 +15,15 @@ public class PowerUpUI : MonoBehaviour
     [field: SerializeField]
     public Image Icon { get; private set; }
 
+    public PowerUp PowerUp { get; private set; }
+
     public void UpdatePowerUp(PowerUp powerUp)
     {
+        PowerUp = powerUp;
         NameText.text = powerUp.Name;
         DurationText.text = powerUp.Duration.ToString();
         Icon.sprite = powerUp.Icon;
+
+        powerUp.DurationChanged += (newDuration) => { DurationText.text = Mathf.Round(newDuration).ToString(); };
     }
 }

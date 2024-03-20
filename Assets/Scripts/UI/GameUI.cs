@@ -117,9 +117,9 @@ public class GameUI : MonoBehaviour
     {
         for (int i = 0; i < PowerUpsParent.childCount; i++)
         {
-            if (PowerUpsParent.GetChild(i).GetComponent<PowerUpUI>().name == name)
+            if (PowerUpsParent.GetChild(i).GetComponent<PowerUpUI>().PowerUp.Name == name)
             {
-                Destroy(PowerUpsParent.GetChild(i));
+                Destroy(PowerUpsParent.GetChild(i).gameObject);
             }
         }
     }

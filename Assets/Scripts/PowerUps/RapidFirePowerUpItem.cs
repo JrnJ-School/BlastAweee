@@ -6,10 +6,9 @@ public class RapidFirePowerUpItem : PowerUpPickupable
 {
     public override PowerUp ToPowerUp()
     {
-        return new RapidFirePowerUp()
+        return new RapidFirePowerUp(Duration)
         {
             Name = Name,
-            Duration = Duration,
             Icon = Icon
         };
     }

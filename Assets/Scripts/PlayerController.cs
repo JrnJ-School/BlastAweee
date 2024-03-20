@@ -159,7 +159,7 @@ public class PlayerController : Entity, IGunEntity
     {
         for (int i = 0; i < ActivePowerUps.Count; i++)
         {
-            ActivePowerUps[i].Duration -= Time.deltaTime;
+            ActivePowerUps[i].SetDuration(ActivePowerUps[i].Duration - Time.deltaTime);
             if (ActivePowerUps[i].Duration <= 0.0f)
             {
                 ActivePowerUps[i].SetExpired();
@@ -195,7 +195,7 @@ public class PlayerController : Entity, IGunEntity
         }
         else
         {
-            existingPowerUp.Duration = powerUp.Duration;
+            existingPowerUp.SetDuration(powerUp.Duration);
         }
     }
 

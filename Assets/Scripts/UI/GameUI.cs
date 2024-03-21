@@ -27,9 +27,13 @@ public class GameUI : MonoBehaviour
     [field: SerializeField]
     public TextMeshProUGUI PlayerHealthText { get; private set; }
 
+    [field: SerializeField]
+    public TextMeshProUGUI PlayerKeysText { get; private set; }
+
     private void Awake()
     {
         Player.HealthChangedEvent += HealthChanged;
+        Player.KeysChangedEvent += KeysChanged;
     }
 
     void Update()
@@ -54,7 +58,7 @@ public class GameUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 NextLevelScreen.gameObject.SetActive(false);
-                // TODO: go to next lvel
+                // TODO: go to next level maybe?
                 GameManager.Instance.SelectMainMenu();
             }
         }
@@ -87,6 +91,11 @@ public class GameUI : MonoBehaviour
     public void HealthChanged(float newHealth)
     {
         PlayerHealthText.text = "Health: " + newHealth;
+    }
+
+    public void KeysChanged(int newKeyAmount)
+    {
+        PlayerKeysText.text = "Keys: " + newKeyAmount;
     }
 
     private void SetEscapeMenuOpen(bool open)

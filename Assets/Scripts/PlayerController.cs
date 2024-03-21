@@ -39,6 +39,9 @@ public class PlayerController : Entity, IGunEntity
 
     public bool NoKeysRequired { get; set; } = false;
 
+    // Events
+    public event Action<int> KeysChangedEvent;
+
     public void ResetOnEnterLevel()
     {
         Heal(MaxHealth);
@@ -251,6 +254,7 @@ public class PlayerController : Entity, IGunEntity
 
             case "Key":
                 Keys.Add(item.GetComponent<KeyItem>().ToKey());
+                KeysChangedEvent?.Invoke(Keys.Count);
                 break;
         }
 

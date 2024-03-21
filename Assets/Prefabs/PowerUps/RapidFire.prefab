@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ItemTag>k__BackingField: PowerUp
-  <Name>k__BackingField: Rapid Fire
+  <Name>k__BackingField: Rapidfire
   <Icon>k__BackingField: {fileID: 21300000, guid: 8a2df6dec818f2f48b480dedaab826cc, type: 3}
   <Duration>k__BackingField: 5
 --- !u!212 &5899797559217957935

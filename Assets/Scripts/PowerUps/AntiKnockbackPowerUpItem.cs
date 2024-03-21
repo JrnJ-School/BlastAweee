@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntiKnockbackPowerUpItem : MonoBehaviour
+public class AntiKnockbackPowerUpItem : PowerUpPickupable
 {
-    // Start is called before the first frame update
-    void Start()
+    public override PowerUp ToPowerUp()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return new NoKnockbackPowerUp(Duration)
+        {
+            Name = Name,
+            Icon = Icon
+        };
     }
 }

@@ -20,9 +20,13 @@ public class Entity : MonoBehaviour
     public float ActiveMoveSpeed = 0.0f;
 
     public bool TakingKnockback { get; private set; }
+
+    public bool TakesKnockback { get; set; } = true;
+
     public virtual bool IsPlayer { get; } = false;
 
     protected Vector2 _moveDirection = Vector2.zero;
+
     private float _knockbackTimer;
     private float _knockbackTime;
     private bool _isInvincible = false;
@@ -78,6 +82,8 @@ public class Entity : MonoBehaviour
     // Knockback
     public void TakeKnockback(float direction, float speed, float time)
     {
+        if (!TakesKnockback) return;
+
         _moveDirection = new Vector2(
             Mathf.Cos(direction * Mathf.Deg2Rad),
             Mathf.Sin(direction * Mathf.Deg2Rad)
@@ -89,6 +95,13 @@ public class Entity : MonoBehaviour
     }
     protected void DoTakeKnockback()
     {
+        // Should be possible, but for safety
+        if (!TakesKnockback)
+        {
+            FinishTakeKnockback();
+            return;
+        }
+
         _knockbackTimer += Time.deltaTime;
 
         // Check for End of Dash

@@ -19,6 +19,8 @@ public class SlimeBossEnemy : SlimeEnemy
     {
         base.OnUpdate();
 
+        if (Target == null) return;
+
         _slimeSpawnTimer += Time.deltaTime;
 
         if (_slimeSpawnTimer >= TimeBetweenSlimeSpawns)

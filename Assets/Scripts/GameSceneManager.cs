@@ -39,21 +39,30 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName)
+    public event EventHandler OnLevelSceneLoaded;
+
+    public EventHandler LoadLevelSceneAsync(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName).completed += LevelSceneLoadedComplete;
+        return OnLevelSceneLoaded;
     }
 
-    public event EventHandler OnSceneLoaded;
-
-    public EventHandler LoadSceneAsync(string sceneName)
+    private void LevelSceneLoadedComplete(AsyncOperation obj)
     {
-        SceneManager.LoadSceneAsync(sceneName).completed += GameSceneManager_completed;
-        return OnSceneLoaded;
+        OnLevelSceneLoaded?.Invoke(this, EventArgs.Empty);
     }
 
-    private void GameSceneManager_completed(AsyncOperation obj)
+
+    public event EventHandler OnMainMenuSceneLoaded;
+
+    public EventHandler LoadMainMenuSceneAsync()
     {
-        OnSceneLoaded?.Invoke(this, EventArgs.Empty);
+        SceneManager.LoadSceneAsync("MainMenuScene").completed += MainMenuSceneLoadedComplete;
+        return OnMainMenuSceneLoaded;
+    }
+
+    private void MainMenuSceneLoadedComplete(AsyncOperation obj)
+    {
+        OnMainMenuSceneLoaded?.Invoke(this, EventArgs.Empty);
     }
 }

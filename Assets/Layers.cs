@@ -14,6 +14,7 @@ public class Layers
         Door = 20,
         Items = 25,
         Bullets = 30,
+        ArrowLauncher = 31,
         Enemy = 35,
         BossEnemy = 36,
         Player = 40,

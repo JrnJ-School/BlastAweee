@@ -69,17 +69,6 @@ public class Enemy : Entity
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Target.transform == null)
-            return;
-
-        if (collision.transform != Target.transform)
-            return;
-
-        Debug.Log("ATTACK Trigger");
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

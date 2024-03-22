@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rb>k__BackingField: {fileID: 4765552563799228527}
-  <Speed>k__BackingField: 8
+  <Speed>k__BackingField: 6
   <MaxHealth>k__BackingField: 50
   ActiveMoveSpeed: 0
   <DetectionRange>k__BackingField: 13
@@ -127,6 +127,8 @@ MonoBehaviour:
   <CanAttackLayerMasks>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
+  <AttackDamage>k__BackingField: 7
+  <AttackCooldown>k__BackingField: 1
 --- !u!50 &4765552563799228527
 Rigidbody2D:
   serializedVersion: 4

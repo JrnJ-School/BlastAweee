@@ -136,7 +136,7 @@ MonoBehaviour:
   <HasDamageParticles>k__BackingField: 0
   <OnHitParticleSystemPrefab>k__BackingField: {fileID: 0}
   <Speed>k__BackingField: 16
-  <HitDamage>k__BackingField: 25
+  <HitDamage>k__BackingField: 10
   <Owner>k__BackingField: {fileID: 0}
 --- !u!50 &8963759182277117600
 Rigidbody2D:

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : Enemy
+public class SlimeEnemy : MeleeEnemy
 {
     [field: SerializeField]
     public float TimeBetweenJumps { get; private set; }
@@ -16,7 +16,7 @@ public class SlimeEnemy : Enemy
     private Vector3 _targetPositionWhenJumped = Vector3.zero;
     private bool _isJumping = false;
 
-    private void Awake()
+    public override void OnAwake()
     {
         TimeTillJump = TimeBetweenJumps;
     }

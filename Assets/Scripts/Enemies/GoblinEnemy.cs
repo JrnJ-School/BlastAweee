@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinEnemy : Enemy
+public class GoblinEnemy : MeleeEnemy
 {
     public override void Move()
     {

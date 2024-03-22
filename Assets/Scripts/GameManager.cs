@@ -58,14 +58,12 @@ public class GameManager : MonoBehaviour
         GameObject.DontDestroyOnLoad(GameUI);
         GameObject.DontDestroyOnLoad(Camera);
 
-        GameSceneManager.Instance.OnSceneLoaded += Instance_OnSceneLoaded;
-        GameSceneManager.Instance.LoadSceneAsync("LevelScene" + levelId);
+        GameSceneManager.Instance.OnLevelSceneLoaded += OnLevelSceneLoaded;
+        GameSceneManager.Instance.LoadLevelSceneAsync("LevelScene" + levelId);
     }
 
-    private void Instance_OnSceneLoaded(object sender, EventArgs e)
+    private void OnLevelSceneLoaded(object sender, EventArgs e)
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
-
         CurrentLevel = GameObject.Find("Level").GetComponent<Level>();
 
         Player.transform.position = CurrentLevel.SpawnPosition.position;
@@ -80,9 +78,14 @@ public class GameManager : MonoBehaviour
     public void SelectMainMenu()
     {
         Player.gameObject.SetActive(false);
+
+        GameSceneManager.Instance.OnMainMenuSceneLoaded += OnMainMenuSceneLoaded;
+        GameSceneManager.Instance.LoadMainMenuSceneAsync();
+    }
+
+    private void OnMainMenuSceneLoaded(object sender, EventArgs e)
+    {
         GameUI.gameObject.SetActive(false);
         Camera.gameObject.SetActive(false);
-
-        GameSceneManager.Instance.LoadScene("MainMenuScene");
     }
 }

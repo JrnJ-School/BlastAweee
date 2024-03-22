@@ -37,6 +37,13 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         _timeBetweenShots = TimeBetweenShots;
+
+        OnAwake();
+    }
+
+    protected virtual void OnAwake()
+    {
+
     }
 
     private void Update()
@@ -62,17 +69,24 @@ public class Gun : MonoBehaviour
     {
         // Spawn Bullet
         GameObject bullet = Instantiate(BulletPrefab, BulletSpawn.position, Quaternion.identity, transform);
-        bullet.GetComponent<Bullet>().Go(_aimDirection, Owner.gameObject);
-
-        // Knockback Entity
-        if (HasKnockback)
+        if (Owner == null)
         {
-            Owner.TakeKnockback((_aimDirection.eulerAngles.z + 180.0f) % 360.0f, KnockbackSpeed, KnockbackTime);
+            bullet.GetComponent<Bullet>().Go(_aimDirection, this.gameObject);
         }
-
-        if (Owner.IsPlayer)
+        else
         {
-            StatisticsManager.BulletsShotStatistic.AddValue(1);
+            bullet.GetComponent<Bullet>().Go(_aimDirection, Owner.gameObject);
+
+            // Knockback Entity
+            if (HasKnockback)
+            {
+                Owner.TakeKnockback((_aimDirection.eulerAngles.z + 180.0f) % 360.0f, KnockbackSpeed, KnockbackTime);
+            }
+
+            if (Owner.IsPlayer)
+            {
+                StatisticsManager.BulletsShotStatistic.AddValue(1);
+            }
         }
     }
 

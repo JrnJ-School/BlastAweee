@@ -107,7 +107,10 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   ActiveMoveSpeed: 0
   <DetectionRange>k__BackingField: 10
-  <LayerMask>k__BackingField:
+  <CanInteruptLayerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 576
+  <CanAttackLayerMasks>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
   <DistanceToKeep>k__BackingField: 5.5

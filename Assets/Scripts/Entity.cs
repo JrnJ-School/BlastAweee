@@ -36,6 +36,13 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         Health = MaxHealth;
+
+        OnAwake();
+    }
+
+    public virtual void OnAwake()
+    {
+
     }
 
     public void SetInvincible(bool invincible)

@@ -46,6 +46,7 @@ public class PlayerController : Entity, IGunEntity
     {
         Heal(MaxHealth);
         Keys.Clear();
+        KeysChangedEvent?.Invoke(0);
         ActivePowerUps.Clear();
         IsDashing = false;
         _dashTimer = 0.0f;

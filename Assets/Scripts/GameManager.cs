@@ -69,10 +69,10 @@ public class GameManager : MonoBehaviour
         Player.transform.position = CurrentLevel.SpawnPosition.position;
         Camera.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10.0f);
 
-        Player.ResetOnEnterLevel();
         Player.gameObject.SetActive(true);
         GameUI.gameObject.SetActive(true);
         Camera.gameObject.SetActive(true);
+        Player.ResetOnEnterLevel();
     }
 
     public void SelectMainMenu()

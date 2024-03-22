@@ -57,6 +57,7 @@ public class Entity : MonoBehaviour
 
         if (Health - amount <= 0)
         {
+            HealthChangedEvent?.Invoke(Health);
             EntityDied();
             return;
         }
@@ -72,6 +73,7 @@ public class Entity : MonoBehaviour
         if (Health + amount > MaxHealth)
         {
             Health = MaxHealth;
+            HealthChangedEvent?.Invoke(Health);
             return;
         }
 

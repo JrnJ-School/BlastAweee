@@ -9,23 +9,23 @@ public class Gun : MonoBehaviour
     public Transform Pivot { get; private set; }
 
     [field: SerializeField]
-    public Transform BulletSpawn { get; private set; }
+    private Transform BulletSpawn { get; set; }
 
     [field: SerializeField]
     public Entity Owner { get; private set; }
 
     [field: SerializeField, Header("Variables")]
-    public float TimeBetweenShots { get; private set; } // In Seconds
+    private float TimeBetweenShots { get; set; } // In Seconds
     private float _timeBetweenShots;
 
     [field: SerializeField, Header("Knockback")]
-    public bool HasKnockback { get; private set; }
+    private bool HasKnockback { get; set; }
 
     [field: SerializeField]
-    public float KnockbackSpeed { get; private set; }
+    private float KnockbackSpeed { get; set; }
 
     [field: SerializeField]
-    public float KnockbackTime { get; private set; }
+    private float KnockbackTime { get; set; }
 
     [field: SerializeField]
     public GameObject BulletPrefab { get; private set; }
@@ -56,18 +56,17 @@ public class Gun : MonoBehaviour
         TryAutoShoot();
     }
 
-    #region Aiming
     public virtual void Aim(Quaternion aimDirection)
     {
         _aimDirection = aimDirection;
         Pivot.rotation = _aimDirection;
     }
-    #endregion
 
-    #region Shooting
     public virtual void Shoot()
     {
         // Spawn Bullet
+        ShootSound();
+
         GameObject bullet = Instantiate(BulletPrefab, BulletSpawn.position, Quaternion.identity, transform);
         if (Owner == null)
         {
@@ -126,9 +125,13 @@ public class Gun : MonoBehaviour
         }
     }
 
+    public virtual void ShootSound()
+    {
+
+    }
+
     private void ResetTimer()
     {
         _timer = 0.0f;
     }
-    #endregion Shooting
 }

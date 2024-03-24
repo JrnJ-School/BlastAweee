@@ -3,18 +3,18 @@ using UnityEngine;
 public class BombBullet : Bullet
 {
     [field: SerializeField]
-    public float ExplosionRange { get; private set; }
+    private float ExplosionRange { get; set; }
 
     [field: SerializeField]
-    public LayerMask LayerMask { get; private set; }
+    private LayerMask LayerMask { get; set; }
 
     private float _defaultExplosionRange;
 
-    private void Awake()
+    public override void Go(Quaternion direction, GameObject owner)
     {
+        base.Go(direction, owner);
         _defaultExplosionRange = ExplosionRange;
     }
-
     protected override void DoHitDamage(Collider2D collision)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, ExplosionRange, LayerMask);
@@ -26,6 +26,8 @@ public class BombBullet : Bullet
 
             collider.GetComponent<Entity>().Damage(HitDamage);
         }
+
+        AudioManager.Play(Sound.SoundId.BombExplode);
     }
 
     public void SetExplosionRange(float newRange)

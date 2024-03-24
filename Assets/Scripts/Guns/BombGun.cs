@@ -7,7 +7,10 @@ public class BombGun : Gun
     public override void Shoot()
     {
         base.Shoot();
+    }
 
-        //Debug.Log("SHOOT!");
+    public override void ShootSound()
+    {
+        AudioManager.Play(Sound.SoundId.BombShoot);
     }
 }

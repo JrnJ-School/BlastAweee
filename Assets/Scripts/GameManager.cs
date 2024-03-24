@@ -42,13 +42,13 @@ public class GameManager : MonoBehaviour
     #endregion Singleton
 
     [field: SerializeField]
-    public PlayerController Player { get; private set; }
+    private PlayerController Player { get; set; }
 
     [field: SerializeField]
     public GameUI GameUI { get; private set; }
 
     [field: SerializeField]
-    public Camera Camera { get; private set; }
+    private Camera Camera { get; set; }
 
     private Level CurrentLevel { get; set; }
 

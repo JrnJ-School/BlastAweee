@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UILevel : View
 {
     [field: SerializeField, Header("Components")]
-    public TextMeshProUGUI Text { get; private set; }
+    private TextMeshProUGUI Text { get; set; }
 
     [field: SerializeField]
     public Button Button { get; private set; }
@@ -16,7 +16,7 @@ public class UILevel : View
     public int LevelId { get; private set; }
 
     [field: SerializeField]
-    public string LevelName { get; private set; }
+    private string LevelName { get; set; }
 
     private void Awake()
     {

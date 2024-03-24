@@ -5,34 +5,32 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [field: SerializeField, Header("Components")]
-    public Rigidbody2D Rb { get; private set; }
+    private Rigidbody2D Rb { get; set; }
 
     [field: SerializeField]
-    public GameObject Visual { get; private set; }
+    private GameObject Visual { get; set; }
 
     [field: SerializeField]
-    public bool HasDamageParticles { get; private set; }
+    private bool HasDamageParticles { get; set; }
 
     [field: SerializeField]
-    public ParticleSystem OnHitParticleSystemPrefab { get; private set; }
+    private ParticleSystem OnHitParticleSystemPrefab { get; set; }
 
     [field: SerializeField, Header("Variables")]
-    public float Speed { get; private set; }
+    private float Speed { get; set; }
 
     [field: SerializeField]
     public float HitDamage { get; private set; }
-
-    [field: SerializeField]
     public GameObject Owner { get; private set; }
 
-    public Quaternion Direction { get; set; } = Quaternion.identity;
+    private Quaternion Direction { get; set; } = Quaternion.identity;
 
     public virtual float DespawnTime { get; } = 15.0f;
 
     private float _timer = 0.0f;
     private bool _hit = false;
 
-    public void Go(Quaternion direction, GameObject owner)
+    public virtual void Go(Quaternion direction, GameObject owner)
     {
         Direction = direction;
         transform.rotation = Direction;

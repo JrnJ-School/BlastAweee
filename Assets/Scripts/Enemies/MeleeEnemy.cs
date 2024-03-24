@@ -6,15 +6,15 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     [field: SerializeField]
-    public float AttackDamage { get; private set; }
+    private float AttackDamage { get; set; }
 
     [field: SerializeField]
-    public float AttackCooldown { get; private set; }
+    private float AttackCooldown { get; set; }
 
     private bool _canAttack = true;
     private float _attackCooldownTimer;
 
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         base.OnUpdate();
 

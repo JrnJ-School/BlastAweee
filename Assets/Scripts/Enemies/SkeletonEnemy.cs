@@ -5,14 +5,14 @@ using UnityEngine;
 public class SkeletonEnemy : Enemy, IGunEntity
 {
     [field: SerializeField]
-    public float DistanceToKeep { get; private set; }
+    private float DistanceToKeep { get; set; }
 
     [field: SerializeField]
-    public BowGun Gun { get; private set; }
+    private BowGun Gun { get; set; }
 
     private Quaternion _aimDirection = Quaternion.identity;
 
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         if (Target != null)
         {
@@ -21,7 +21,7 @@ public class SkeletonEnemy : Enemy, IGunEntity
         base.OnUpdate();
     }
 
-    public override void Move()
+    protected override void Move()
     {
         // Evade Player instead of going towards it
         // so the skeleton will keep a distance from the player and shoot it with the bow

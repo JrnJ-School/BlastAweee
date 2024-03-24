@@ -5,13 +5,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [field: SerializeField]
-    public Camera Camera { get; private set; }
+    private Camera Camera { get; set; }
 
     [field: SerializeField]
-    public Transform ToFollow { get; private set; }
+    private Transform ToFollow { get; set; }
 
     [field: SerializeField, Range(0.0f, 10.0f)]
-    public float Smoothness { get; private set; }
+    private float Smoothness { get; set; }
 
     private void Update()
     {

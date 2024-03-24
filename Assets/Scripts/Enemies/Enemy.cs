@@ -7,22 +7,22 @@ using UnityEngine.EventSystems;
 public class Enemy : Entity
 {
     [field: SerializeField]
-    public float DetectionRange { get; private set; }
+    private float DetectionRange { get; set; }
 
     [field: SerializeField]
-    public LayerMask CanInteruptLayerMasks { get; private set; }
+    private LayerMask CanInteruptLayerMasks { get; set; }
 
     [field: SerializeField]
-    public LayerMask CanAttackLayerMasks { get; private set; }
+    private LayerMask CanAttackLayerMasks { get; set; }
 
-    public Transform Target { get; set; }
+    protected Transform Target { get; set; }
 
     private void Update()
     {
         OnUpdate();
     }
 
-    public virtual void OnUpdate()
+    protected virtual void OnUpdate()
     {
         if (Target == null)
         {
@@ -59,7 +59,7 @@ public class Enemy : Entity
         base.EntityDied();
     }
 
-    public virtual void Move()
+    protected virtual void Move()
     {
 
     }

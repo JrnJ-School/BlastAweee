@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoblinEnemy : MeleeEnemy
 {
-    public override void Move()
+    protected override void Move()
     {
         if (Target == null)
         {

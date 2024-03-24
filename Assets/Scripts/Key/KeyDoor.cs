@@ -5,18 +5,18 @@ using UnityEngine;
 public class KeyDoor : MonoBehaviour
 {
     [field: SerializeField]
-    public Sprite ClosedDoorVisual { get; private set; }
+    private Sprite ClosedDoorVisual { get; set; }
 
     [field: SerializeField]
-    public Sprite OpenDoorVisual { get; private set; }
+    private Sprite OpenDoorVisual { get; set; }
 
     [field: SerializeField]
-    public SpriteRenderer Renderer { get; private set; }
+    private SpriteRenderer Renderer { get; set; }
 
     [field: SerializeField]
-    public int KeysNeededToOpen { get; private set; }
+    private int KeysNeededToOpen { get; set; }
 
-    public GameUI GameUI { get; private set; }
+    private GameUI GameUI { get; set; }
 
     private bool IsOpen { get; set; } = false;
 
@@ -41,6 +41,7 @@ public class KeyDoor : MonoBehaviour
     {
         Renderer.sprite = OpenDoorVisual;
         IsOpen = true;
+        AudioManager.Play(Sound.SoundId.Win);
         GameUI.NextLevelScreen.gameObject.SetActive(true);
     }
 }

@@ -7,23 +7,23 @@ using UnityEngine;
 public class PlayerController : Entity, IGunEntity
 {
     [field: SerializeField]
-    public Camera Camera { get; private set; }
+    private Camera Camera { get; set; }
 
     [field: SerializeField]
-    public GameUI GameUI { get; private set; }
+    private GameUI GameUI { get; set; }
 
     [field: SerializeField]
     public Gun Gun { get; private set; }
 
     [field: SerializeField, Header("Dash")]
-    public float DashSpeed { get; private set; }
+    private float DashSpeed { get; set; }
 
     [field: SerializeField]
-    public float DashTime { get; private set; }
+    private float DashTime { get; set; }
 
     [field: SerializeField]
-    public float DashCooldown { get; private set; }
-    public bool IsDashing { get; private set; } = false;
+    private float DashCooldown { get; set; }
+    private bool IsDashing { get; set; } = false;
 
     public override bool IsPlayer => true;
 
@@ -64,6 +64,7 @@ public class PlayerController : Entity, IGunEntity
     {
         StatisticsManager.DeathStatistic.AddValue(1);
         GameUI.GameOverScreen.gameObject.SetActive(true);
+        AudioManager.Play(Sound.SoundId.Death);
     }
 
     private void CheckInput()
@@ -123,6 +124,8 @@ public class PlayerController : Entity, IGunEntity
             Mathf.Cos(_aimDirection.eulerAngles.z * Mathf.Deg2Rad),
             Mathf.Sin(_aimDirection.eulerAngles.z * Mathf.Deg2Rad)
             ).normalized;
+
+        AudioManager.Play(Sound.SoundId.Dash);
 
         StartCoroutine(CooldownFinished());
     }

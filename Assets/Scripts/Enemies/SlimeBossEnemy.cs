@@ -5,17 +5,17 @@ using UnityEngine;
 public class SlimeBossEnemy : SlimeEnemy
 {
     [field: SerializeField]
-    public float TimeBetweenSlimeSpawns { get; private set; }
+    private float TimeBetweenSlimeSpawns { get; set; }
 
     [field: SerializeField]
-    public GameObject SlimeEnemyPrefab { get; private set; }
+    private GameObject SlimeEnemyPrefab { get; set; }
 
     [field: SerializeField]
-    public GameObject KeyPrefab { get; private set; }
+    private GameObject KeyPrefab { get; set; }
 
     private float _slimeSpawnTimer = 0.0f;
 
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         base.OnUpdate();
 

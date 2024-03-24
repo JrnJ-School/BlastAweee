@@ -40,7 +40,7 @@ public class Entity : MonoBehaviour
         OnAwake();
     }
 
-    public virtual void OnAwake()
+    protected virtual void OnAwake()
     {
 
     }
@@ -57,6 +57,7 @@ public class Entity : MonoBehaviour
 
         if (Health - amount <= 0)
         {
+            Health = 0;
             HealthChangedEvent?.Invoke(Health);
             EntityDied();
             return;

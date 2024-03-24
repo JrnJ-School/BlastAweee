@@ -5,30 +5,30 @@ using UnityEngine;
 public class SlimeEnemy : MeleeEnemy
 {
     [field: SerializeField]
-    public float TimeBetweenJumps { get; private set; }
+    private float TimeBetweenJumps { get; set; }
 
     [field: SerializeField]
-    public float JumpDuration { get; private set; }
+    private float JumpDuration { get; set; }
 
-    public float TimeTillJump { get; private set; } = 0.0f;
-    public float TimeJumping { get; private set; } = 0.0f;
+    private float TimeTillJump { get; set; } = 0.0f;
+    private float TimeJumping { get; set; } = 0.0f;
 
     private Vector3 _targetPositionWhenJumped = Vector3.zero;
     private bool _isJumping = false;
 
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         TimeTillJump = TimeBetweenJumps;
     }
 
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         TimeTillJump -= Time.deltaTime;
 
         base.OnUpdate();
     }
 
-    public override void Move()
+    protected override void Move()
     {
         if (Target == null)
         {

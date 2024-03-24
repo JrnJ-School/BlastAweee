@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArrowLauncher : Gun
 {
     [field: SerializeField]
-    public float AimRotation { get; private set; }
+    private float AimRotation { get; set; }
 
     protected override void OnAwake()
     {

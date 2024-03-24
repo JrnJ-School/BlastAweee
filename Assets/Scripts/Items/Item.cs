@@ -24,6 +24,4 @@ public abstract class Item : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-    //public abstract T ToItem<T>();
 }

@@ -5,19 +5,19 @@ using UnityEngine;
 public class PowerUpSpawner : MonoBehaviour
 {
     [field: SerializeField, Header("Components")]
-    public Transform SpawnParent { get; private set; }
+    private Transform SpawnParent { get; set; }
 
     [field: SerializeField]
-    public Transform PowerUpSpawnLocations { get; private set; }
+    private Transform PowerUpSpawnLocations { get; set; }
 
     [field: SerializeField]
-    public List<Vector2> SpawnLocations { get; private set; }
+    private List<Vector2> SpawnLocations { get; set; }
 
     [field: SerializeField]
-    public List<GameObject> PowerUpsPrefabs { get; private set; }
+    private List<GameObject> PowerUpsPrefabs { get; set; }
 
     [field: SerializeField, Header("Variables")]
-    public float SpawnTime { get; private set; }
+    private float SpawnTime { get; set; }
     private float _powerUpSpawnTimer = 0.0f;
 
     private bool _doSpawning = true;

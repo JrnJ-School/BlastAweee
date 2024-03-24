@@ -6,14 +6,14 @@ using UnityEngine;
 public class GameUI : MonoBehaviour
 {
     [field: SerializeField]
-    public Transform EscapeMenu { get; private set; }
+    private Transform EscapeMenu { get; set; }
     public static bool EscapeOpen { get; set; } = false;
 
     [field: SerializeField, Header("PowerUps")]
-    public Transform PowerUpsParent { get; private set; }
+    private Transform PowerUpsParent { get; set; }
 
     [field: SerializeField]
-    public GameObject PowerUpUIPrefab { get; private set; }
+    private GameObject PowerUpUIPrefab { get; set; }
 
     [field: SerializeField]
     public Transform GameOverScreen { get; private set; }
@@ -22,13 +22,13 @@ public class GameUI : MonoBehaviour
     public Transform NextLevelScreen { get; private set; }
 
     [field: SerializeField]
-    public PlayerController Player { get; private set; }
+    private PlayerController Player { get; set; }
 
     [field: SerializeField]
-    public TextMeshProUGUI PlayerHealthText { get; private set; }
+    private TextMeshProUGUI PlayerHealthText { get; set; }
 
     [field: SerializeField]
-    public TextMeshProUGUI PlayerKeysText { get; private set; }
+    private TextMeshProUGUI PlayerKeysText { get; set; }
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class GameUI : MonoBehaviour
         Player.KeysChangedEvent += KeysChanged;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -48,7 +48,6 @@ public class GameUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 GameOverScreen.gameObject.SetActive(false);
-                // TODO: reset scene?
                 GameManager.Instance.SelectMainMenu();
             }
         }
@@ -58,7 +57,6 @@ public class GameUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 NextLevelScreen.gameObject.SetActive(false);
-                // TODO: go to next level maybe?
                 GameManager.Instance.SelectMainMenu();
             }
         }
